@@ -1,0 +1,138 @@
+// Contare quanti iscritti ci sono stati ogni anno
+
+```sql
+SELECT COUNT(*) AS `totale_iscritti`, YEAR(`enrolment_date`) AS `anno_iscrizione`
+FROM `students`
+GROUP BY YEAR(`enrolment_date`)
+ORDER BY YEAR(`enrolment_date`);
+```
+
+// Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+
+```sql
+SELECT COUNT(*) AS total_count, GROUP_CONCAT(`name`) AS `teacher_names`, `office_address`
+FROM `teachers`
+GROUP BY `office_address`;
+```
+
+// Calcolare la media dei voti di ogni appello d'esame
+
+```sql
+
+SELECT `exam_id`, ROUND(AVG(`vote`), 1) AS `media_vote`
+FROM `exam_student`
+GROUP BY `exam_id`
+
+```
+
+// Contare quanti corsi di laurea ci sono per ogni dipartimento
+
+```sql
+
+SELECT `department_id`, COUNT(*) AS `number_courses`
+FROM `degrees`
+GROUP BY `department_id`;
+
+```
+
+////////////////////////////////////////////////////////////////////////////
+
+// Selezionare tutti gli studenti nati nel 1990 (160)
+
+```sql
+
+SELECT *
+FROM db_university.students
+WHERE YEAR(`date_of_birth`) = 1990
+
+```
+
+// Selezionare tutti i corsi che valgono più di 10 crediti (479)
+
+```sql
+
+SELECT \*
+FROM db_university.courses
+WHERE `cfu` > 10
+
+```
+
+// Selezionare tutti gli studenti che hanno più di 30 anni
+
+```sql
+SELECT *
+FROM db_university.students
+WHERE YEAR(CURRENT_DATE()) - YEAR(`date_of_birth`) > 30
+
+```
+
+// Selezionare tutti gli studenti che hanno più di 30 anni
+
+```sql
+
+SELECT *
+FROM courses
+WHERE `year` = 1
+  AND `period` = 'I semestre';
+
+
+```
+
+// Selezionare tutti gli appelli d'esame che avvengono nel pomeriggio (dopo le 14) del
+20/06/2020 (21)
+
+```sql
+
+SELECT *
+FROM db_university.exams
+WHERE `date` = "2020-06-20"
+AND `hour` > "14:00:00";
+
+
+```
+
+// Selezionare tutti i corsi di laurea magistrale (38)
+
+```sql
+
+SELECT *
+FROM db_university.courses
+WHERE `year` >= 2;
+
+```
+
+// Da quanti dipartimenti è composta l'università? (12)
+
+```sql
+
+SELECT COUNT(*) AS `total_departments`
+FROM db_university.departments;
+
+```
+
+// Quanti sono gli insegnanti che non hanno un numero di telefono?
+
+```sql
+
+SELECT COUNT(*)
+FROM db_university.teachers
+WHERE `phone` IS NULL
+
+```
+
+// Inserire nella tabella degli studenti un nuovo record con i propri dati (per il campo
+degree_id, inserire un valore casuale)
+
+```sql
+
+INSERT INTO db_university.students (`name`, `surname`, `email`, `degree_id`, `date_of_birth`, `fiscal_code`, `enrolment_date`, `registration_number`)
+VALUES ('Francesco', 'Cialfi', 'email@example.it', 1, '1990-01-01', 'ABC12345D', '2023-09-01', '205');
+
+SELECT *
+FROM db_university.students
+WHERE `name` = "Francesco"
+
+```
+
+MANCANTE Cambiare il numero dell’ufficio del professor Pietro Rizzo in 126
+MANCANTE Eliminare dalla tabella studenti il record creato precedentemente al punto 9

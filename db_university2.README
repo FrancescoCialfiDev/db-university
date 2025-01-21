@@ -13,9 +13,30 @@ Neuroscienze
 
 ```sql
 
-SELECT  `departments`.`name` AS `department_name`, `degrees`.`level` FROM departments
+SELECT  `departments`.`id`, `departments`.`name`,  `degrees`.`name` FROM departments
 JOIN `degrees` ON `department_id` = `departments`.`id`
-WHERE `degrees`.`level` = "magistrale"
-GROUP BY `department_name`
+WHERE `departments`.`name` = "Dipartimento di Neuroscienze"
+
+```
+
+// 3. Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
+
+```sql
+
+SELECT CONCAT(`teachers`.`name`, " ", `teachers`.`surname`) AS `full_name`, GROUP_CONCAT(`courses`.`name` SEPARATOR ", ") AS `name_course` FROM `teachers`
+JOIN `course_teacher` ON `teachers`.`id` = `teacher_id`
+JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id`
+WHERE `teachers`.`id` = "44"
+GROUP BY `full_name`
+
+```
+
+// 4. Selezionare tutti gli studenti con i dati relativi al corso di laurea a cui
+sono iscritti e il relativo dipartimento, in ordine alfabetico per cognome e
+nome
+
+```sql
+
+
 
 ```

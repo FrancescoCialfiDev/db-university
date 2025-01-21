@@ -37,6 +37,50 @@ nome
 
 ```sql
 
+SELECT CONCAT(`students`.`surname`," ", `students`.`name`  ) AS `full_name`, `degrees`.`name` AS `cours_name`, `degrees`.`level`, `degrees`.`address`, `degrees`.`email`, `degrees`.`website`  FROM `students`
+JOIN `degrees` ON `degree_id` = `degrees`.`id`
+ORDER BY (`full_name`) ASC
+
+```
+
+// 5. Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+
+```sql
+
+SELECT
+`teachers`.`name` AS `teacher_name`,
+`degrees`.`name` AS `name_degree`,
+ `degrees`.`level` AS `level_degree`,
+ `courses`.`name` AS `name_course`,
+ `courses`.`period` AS `period_course`
+ FROM `degrees`
+JOIN `courses` ON `degree_id` = `degrees`.`id`
+JOIN `course_teacher` ON `courses`.`id` = `course_id`
+JOIN `teachers` ON `teachers`.`id` = `teacher_id`;
+
+```
+
+// 6. Selezionare tutti i docenti che insegnano nel Dipartimento di
+Matematica (54)
+
+```sql
+
+SELECT DISTINCT CONCAT(`teachers`.`name`," ",  `teachers`.`surname`) AS `teacher_fullname`,  `departments`.`name` AS `department_name`
+FROM `teachers`
+JOIN  `course_teacher` ON `teacher_id` = `teachers`.`id`
+JOIN `courses` ON `course_id` = `courses`.`id`
+JOIN `degrees` ON `degree_id` = `degrees`.`id`
+JOIN  `departments` ON `departments`.`id` = `department_id`
+WHERE `departments`.`name` = "Dipartimento di Matematica"
+
+```
+
+// 7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti
+per ogni esame, stampando anche il voto massimo. Successivamente,
+filtrare i tentativi con voto minimo 18
+
+```sql
+
 
 
 ```

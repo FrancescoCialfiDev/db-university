@@ -134,5 +134,20 @@ WHERE `name` = "Francesco"
 
 ```
 
-MANCANTE Cambiare il numero dell’ufficio del professor Pietro Rizzo in 126
-MANCANTE Eliminare dalla tabella studenti il record creato precedentemente al punto 9
+// MANCANTE Cambiare il numero di ufficio del professor Pietro Rizzo in 126
+
+```sql
+
+UPDATE `teachers` SET `office_number` = 126
+WHERE `id` = 58
+
+```
+
+// MANCANTE Eliminare dalla tabella studenti il record creato precedentemente al punto 9
+
+```sql
+
+DELETE FROM `students`
+WHERE `id` = 5300
+
+```
